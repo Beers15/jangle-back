@@ -23,14 +23,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cf401-final/backend.git"
+    "url": "git+https://github.com/jangle401/jangle-back.git"
   },
   "keywords": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cf401-final/backend/issues"
+    "url": "https://github.com/jangle401/jangle-back/issues"
   },
-  "homepage": "https://github.com/cf401-final/backend#readme",
+  "homepage": "https://github.com/jangle401/jangle-back#readme",
   "scripts": {
     "test": "jest --verbose --coverage",
     "start": "node index.js",
