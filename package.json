@@ -1,0 +1,52 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "contributors": [
+    {
+      "name": "Stefanie Riehle",
+      "url": "https://github.com/stefrie"
+    },
+    {
+      "name": "Ryan Emmans",
+      "url": "https://github.com/ryanemmans"
+    },
+    {
+      "name": "Alexander Beers",
+      "url": "https://github.com/Beers15"
+    },
+    {
+      "name": "Kason Braley",
+      "url": "https://github.com/KasonBraley"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jangle401/jangle-back.git"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jangle401/jangle-back/issues"
+  },
+  "homepage": "https://github.com/jangle401/jangle-back#readme",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "start": "node index.js",
+    "lint": "./node_modules/.bin/eslint . --ext .js",
+    "fmt": "prettier --write ."
+  },
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "jest": "^27.4.5",
+    "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "socket.io": "^4.4.0"
+  }
+}
