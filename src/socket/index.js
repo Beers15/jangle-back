@@ -3,6 +3,11 @@ module.exports = function (io) {
     console.log(`Socket ${socket.id} connected`);
 
     socket.on('join', ({ room, username }) => {
+      //ensures a single socket can only be in one room at a time
+      socket.rooms.forEach(room => {
+        socket.leave(room);
+      });
+
       try {
         socket.join(room);
         if (username) {
@@ -20,7 +25,7 @@ module.exports = function (io) {
     socket.on('message', ({ message, room }) => {
       try {
         console.log({ message, room });
-        io.to(room).emit('message', { username: socket.id, message });
+        io.to(room).emit('message', { username: socket.id, message, room });
       } catch (err) {
         console.log(err);
       }
