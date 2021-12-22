@@ -1,3 +1,5 @@
+let users = new Map();
+
 module.exports = function (io) {
   io.on('connection', (socket) => {
     console.log(`Socket ${socket.id} connected`);
@@ -11,6 +13,7 @@ module.exports = function (io) {
       try {
         socket.join(room);
         if (username) {
+          users.set(username, { socketId: socket.id, currentRoom: room });
           socket.username = username;
         }
         console.log(
@@ -29,6 +32,15 @@ module.exports = function (io) {
       } catch (err) {
         console.log(err);
       }
+    });
+
+    socket.on('get-users-for-room', ({ room }) => {
+      let usersInRoom = new Map(
+        [...users]
+        .filter(([, value]) => value.currentRoom === room )
+      );
+      console.log(room, 'has the users ', usersInRoom);
+      io.to(room).emit('get-users-for-room', { users: usersInRoom });
     });
   });
 };
