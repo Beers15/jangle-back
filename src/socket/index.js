@@ -35,18 +35,14 @@ module.exports = function (io) {
     });
 
     socket.on('get-users-for-room', ({ room }) => {
-      let usersInRoom = new Map(
-        [...users]
-        .filter(([, value]) => value.currentRoom === room )
-      );
-      console.log(room, 'has the users ', usersInRoom);
+      let usersInRoom = [...users].filter(([, value]) => value.currentRoom === room )
+
+      console.log(room, ': Current Users ->', usersInRoom);
       io.to(room).emit('get-users-for-room', { users: usersInRoom });
     });
 
     socket.on('disconnect', () => {
-      let leavingUser = [...users].find(([, value]) => {
-        return value.socketId === socket.id
-      });
+      let leavingUser = [...users].find(([, value]) => value.socketId === socket.id );
       users.delete(leavingUser[0]);
     });
   });
