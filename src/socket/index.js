@@ -42,5 +42,12 @@ module.exports = function (io) {
       console.log(room, 'has the users ', usersInRoom);
       io.to(room).emit('get-users-for-room', { users: usersInRoom });
     });
+
+    socket.on('disconnect', () => {
+      let leavingUser = [...users].find(([, value]) => {
+        return value.socketId === socket.id
+      });
+      users.delete(leavingUser[0]);
+    });
   });
 };
