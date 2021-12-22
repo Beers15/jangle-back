@@ -25,7 +25,7 @@ module.exports = function (io) {
     socket.on('message', ({ message, room }) => {
       try {
         console.log({ message, room });
-        io.to(room).emit('message', { username: socket.id, message });
+        io.to(room).emit('message', { username: socket.id, message, room });
       } catch (err) {
         console.log(err);
       }
