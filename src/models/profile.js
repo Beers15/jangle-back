@@ -14,6 +14,10 @@ const profileSchema = new mongoose.Schema({
   interests: {
     type: [String],
   },
+  bio: {
+    type: String,
+    required: true,
+  }
 });
 
 const Profile = mongoose.model('Profile', profileSchema);

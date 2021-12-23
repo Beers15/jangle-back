@@ -3,20 +3,20 @@
 const express = require('express');
 const router = express.Router();
 
-const Rooms = require('../models/rooms');
+const Room = require('../models/room');
 
-router.get('/', getAllRooms);
+router.get('/', getAllRoom);
 router.post('/', createRoom);
 router.delete('/:id', deleteRoom);
 
-async function getAllRooms(req, res) {
-  let allRooms = await Rooms.find({});
-  res.status(200).json(allRooms);
+async function getAllRoom(req, res) {
+  let allRoom = await Room.find({});
+  res.status(200).json(allRoom);
 }
 
 async function createRoom(req, res) {
   try {
-    let result = await Rooms.create(req.body);
+    let result = await Room.create(req.body);
     res.status(201).json(result);
   } catch (err) {
     res.status(500).json(err);
@@ -24,8 +24,8 @@ async function createRoom(req, res) {
 }
 
 async function deleteRoom(req, res) {
-  let result = await Rooms.deleteOne({ id: req.params.id });
-  res.status(201).json(result);
+  let result = await Room.deleteOne({ id: req.params.id });
+  res.status(204).json(result);
 }
 
 module.exports = router;
