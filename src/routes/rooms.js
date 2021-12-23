@@ -5,16 +5,12 @@ const router = express.Router();
 
 const Room = require('../models/room');
 
-router.get('/', getAllRoom);
-router.post('/', createRoom);
-router.delete('/:id', deleteRoom);
-
-async function getAllRoom(req, res) {
+const getAllRoom = async (req, res) => {
   let allRoom = await Room.find({});
   res.status(200).json(allRoom);
 }
 
-async function createRoom(req, res) {
+const createRoom = async (req, res) => {
   try {
     let result = await Room.create(req.body);
     res.status(201).json(result);
@@ -23,9 +19,16 @@ async function createRoom(req, res) {
   }
 }
 
-async function deleteRoom(req, res) {
+const deleteRoom = async (req, res) => {
   let result = await Room.deleteOne({ id: req.params.id });
   res.status(204).json(result);
 }
+
+router.route('/')
+  .get(getAllRoom)
+  .post(createRoom);
+
+router.route('/:id')
+  .delete(deleteRoom);
 
 module.exports = router;
