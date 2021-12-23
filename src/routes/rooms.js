@@ -15,11 +15,13 @@ async function getAllRooms(req, res) {
 }
 
 async function createRoom(req, res) {
-  let check1 = req.body.users[0] + '-' + req.body.users[1];
-  let check2 = req.body.users[1] + '-' + req.body.users[0];
-
-  if(Rooms.find({ roomname: check1 }) || Rooms.find({ roomname: check2 })) {
-    return res.status(409).json({"err": "You already have an open direct message room with this user."});
+  if(req.body.users) {
+    let check1 = await Rooms.find({ roomname: req.body.users[0] + '-' + req.body.users[1] });
+    let check2 = await Rooms.find({ roomname: req.body.users[1] + '-' + req.body.users[0] });
+    
+    if(check1.length > 0 || check2.length > 0) {
+      return res.status(409).json({"err": "You already have an open direct message room with this user."});
+    }
   }
 
   try {
