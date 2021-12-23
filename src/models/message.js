@@ -5,9 +5,18 @@ const mongoose = require('mongoose');
 const messageSchema = new mongoose.Schema({
   roomname: {
     type: String,
+    required: true
+  },
+  content: {
+    type: String,
+    required: true,
   },
   timeSent: {
     type: Date,
+    required: true,
+  },
+  timeSentFormatted: {
+    type: String,
     required: true
   },
   username: {

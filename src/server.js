@@ -9,6 +9,7 @@ require('dotenv').config();
 const { Server } = require('socket.io');
 const roomRoutes = require('./routes/rooms');
 const profileRoutes = require('./routes/profiles');
+const messageRoutes = require('./routes/messages');
 
 const io = new Server(httpServer, {
   cors: {},
@@ -25,6 +26,7 @@ app.use(express.json());
 
 app.use('/rooms', roomRoutes);
 app.use('/profiles', profileRoutes);
+app.use('/messages', messageRoutes);
 
 module.exports = {
   start: (port) => {
