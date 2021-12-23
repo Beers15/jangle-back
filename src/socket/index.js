@@ -6,7 +6,7 @@ module.exports = function (io) {
 
     socket.on('join', ({ room, username }) => {
       //ensures a single socket can only be in one room at a time
-      socket.rooms.forEach(room => {
+      socket.rooms.forEach((room) => {
         socket.leave(room);
       });
 
@@ -35,14 +35,18 @@ module.exports = function (io) {
     });
 
     socket.on('get-users-for-room', ({ room }) => {
-      let usersInRoom = [...users].filter(([, value]) => value.currentRoom === room )
+      let usersInRoom = [...users].filter(
+        ([, value]) => value.currentRoom === room
+      );
 
       console.log(room, ': Current Users ->', usersInRoom);
       io.to(room).emit('get-users-for-room', { users: usersInRoom });
     });
 
     socket.on('disconnect', () => {
-      let leavingUser = [...users].find(([, value]) => value.socketId === socket.id );
+      let leavingUser = [...users].find(
+        ([, value]) => value.socketId === socket.id
+      );
       if(leavingUser)
         users.delete(leavingUser[0]);
     });
