@@ -16,7 +16,7 @@ const io = new Server(httpServer, {
 mongoose.connect(`${process.env.DATABASE_URI}`);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
-db.once('open', () => console.log('Successfully connected to Mognodb'));
+db.once('open', () => console.log('Successfully connected to MongoDB'));
 
 require('./socket')(io);
 app.use(cors());

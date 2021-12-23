@@ -43,7 +43,8 @@ module.exports = function (io) {
 
     socket.on('disconnect', () => {
       let leavingUser = [...users].find(([, value]) => value.socketId === socket.id );
-      users.delete(leavingUser[0]);
+      if(leavingUser)
+        users.delete(leavingUser[0]);
     });
   });
 };
