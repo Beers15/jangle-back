@@ -35,6 +35,15 @@ const deleteProfile = async (req, res) => {
   res.status(204).json(result);
 }
 
+//grabs a random user that is not the passed in user
+const getRandomUser = async (req, res) => {
+  let randomProfile = await Profile.count().then(count => {
+    return Profile.findOne({username: { $ne: req.params.user }}).skip(Math.floor(Math.random() * count));
+  });
+
+  res.status(200).json(randomProfile);
+}
+
 router.route('/')
   .get(getAllProfiles)
   .post(createProfile);
@@ -44,5 +53,7 @@ router.route('/:user')
   .put(updateProfile)
   .delete(deleteProfile);
 
+router.route('/:user/random')
+  .get(getRandomUser)
 
 module.exports = router;
