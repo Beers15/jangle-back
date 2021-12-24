@@ -29,7 +29,7 @@ module.exports = function (io) {
 
     socket.on('message', async (payload) => {
       try {
-        let message = await addMessage(payload)
+        let message = await addMessage(payload);
         console.log('NEW MESSAGE:', message);
         io.to(payload.roomname).emit('message', message);
       } catch (err) {
@@ -50,24 +50,25 @@ module.exports = function (io) {
       let leavingUser = [...users].find(
         ([, value]) => value.socketId === socket.id
       );
-      if(leavingUser)
-        users.delete(leavingUser[0]);
+      if (leavingUser) users.delete(leavingUser[0]);
     });
   });
 };
 
 const addMessage = async (message) => {
-  let msg = message	
+  let msg = message;
   let current = new Date();
-  let date = `${(current.getMonth() + 1)}/${current.getDate()}/${current.getFullYear()}`;
+  let date = `${
+    current.getMonth() + 1
+  }/${current.getDate()}/${current.getFullYear()}`;
   let time = `${current.getHours()}:${current.getMinutes()} PST`;
-  msg.timeSentFormatted =  `${date} at ${time}`;
+  msg.timeSentFormatted = `${date} at ${time}`;
   msg.timeSent = current;
 
   try {
     let result = await Message.create(msg);
     return result;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
+};

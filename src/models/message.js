@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const messageSchema = new mongoose.Schema({
   roomname: {
     type: String,
-    required: true
+    required: true,
   },
   content: {
     type: String,
@@ -17,11 +17,11 @@ const messageSchema = new mongoose.Schema({
   },
   timeSentFormatted: {
     type: String,
-    required: true
+    required: true,
   },
   username: {
     type: String,
-    required: true
+    required: true,
   },
   preferredName: String,
 });
