@@ -59,9 +59,9 @@ module.exports = function (io) {
 const addMessage = async (message) => {
   let msg = message	
   let current = new Date();
-  let date = `${current.getFullYear()}/${(current.getMonth() + 1)}/${current.getDate()}`;
-  let time = `${current.getHours()}:${current.getMinutes()}:${current.getSeconds()}`;
-  msg.timeSentFormatted =  `${date} ~ ${time}`;
+  let date = `${(current.getMonth() + 1)}/${current.getDate()}/${current.getFullYear()}`;
+  let time = `${current.getHours()}:${current.getMinutes()} PST`;
+  msg.timeSentFormatted =  `${date} at ${time}`;
   msg.timeSent = current;
 
   try {
