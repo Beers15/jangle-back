@@ -1,3 +1,5 @@
+const Message = require('../models/message');
+
 let users = new Map();
 
 module.exports = function (io) {
@@ -25,10 +27,11 @@ module.exports = function (io) {
       }
     });
 
-    socket.on('message', ({ message, room }) => {
+    socket.on('message', async (payload) => {
       try {
-        console.log({ message, room });
-        io.to(room).emit('message', { username: socket.id, message, room });
+        let message = await addMessage(payload)
+        console.log('NEW MESSAGE:', message);
+        io.to(payload.roomname).emit('message', message);
       } catch (err) {
         console.log(err);
       }
@@ -52,3 +55,19 @@ module.exports = function (io) {
     });
   });
 };
+
+const addMessage = async (message) => {
+  let msg = message	
+  let current = new Date();
+  let date = `${current.getFullYear()}/${(current.getMonth() + 1)}/${current.getDate()}`;
+  let time = `${current.getHours()}:${current.getMinutes()}:${current.getSeconds()}`;
+  msg.timeSentFormatted =  `${date} ~ ${time}`;
+  msg.timeSent = current;
+
+  try {
+    let result = await Message.create(msg);
+    return result;
+  } catch (err) {
+    console.log(err)
+  }
+}
