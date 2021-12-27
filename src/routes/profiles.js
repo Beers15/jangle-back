@@ -24,7 +24,7 @@ const createProfile = async (req, res) => {
       url: req.file.path,
       filename: req.file.filename
     }
-  }
+  } else delete req.body.image;
 
   try {
     let result = await Profile.create(req.body);
@@ -42,7 +42,8 @@ const updateProfile = async (req, res) => {
       url: req.file.path,
       filename: req.file.filename
     }
-  }
+  } else delete req.body.image;
+
   try {
     let result = await Profile.findOneAndUpdate({ username: req.body.username }, req.body);
     res.status(204).json(result);
@@ -68,7 +69,9 @@ const getRandomUser = async (req, res) => {
   res.status(200).json(randomProfile);
 };
 
-router.route('/').get(getAllProfiles).post(createProfile);
+router.route('/')
+  .get(getAllProfiles)
+  .post(upload.single('image'), createProfile);
 
 router
   .route('/:user')
