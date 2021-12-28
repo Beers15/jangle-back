@@ -9,6 +9,7 @@ const roomSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  users: [String],
   password: String, //temp
 });
 

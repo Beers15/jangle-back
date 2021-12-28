@@ -8,6 +8,8 @@ require('dotenv').config();
 
 const { Server } = require('socket.io');
 const roomRoutes = require('./routes/rooms');
+const profileRoutes = require('./routes/profiles');
+const messageRoutes = require('./routes/messages');
 
 const io = new Server(httpServer, {
   cors: {},
@@ -16,13 +18,15 @@ const io = new Server(httpServer, {
 mongoose.connect(`${process.env.DATABASE_URI}`);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
-db.once('open', () => console.log('Successfully connected to Mognodb'));
+db.once('open', () => console.log('Successfully connected to MongoDB'));
 
 require('./socket')(io);
 app.use(cors());
 app.use(express.json());
 
 app.use('/rooms', roomRoutes);
+app.use('/profiles', profileRoutes);
+app.use('/messages', messageRoutes);
 
 module.exports = {
   start: (port) => {
