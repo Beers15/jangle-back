@@ -20,11 +20,9 @@ const createRoom = async (req, res) => {
     });
 
     if (check1.length > 0 || check2.length > 0) {
-      return res
-        .status(409)
-        .json({
-          err: 'You already have an open direct message room with this user.',
-        });
+      return res.status(409).json({
+        err: 'You already have an open direct message room with this user.',
+      });
     }
   }
 
