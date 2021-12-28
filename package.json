@@ -32,16 +32,18 @@
   },
   "homepage": "https://github.com/jangle401/jangle-back#readme",
   "scripts": {
-    "test": "jest --verbose --coverage",
+    "test": "NODE_ENV=test jest --verbose --coverage",
     "start": "node index.js",
     "lint": "./node_modules/.bin/eslint . --ext .js",
     "fmt": "prettier --write ."
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^2.2.0",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "jest": "^27.4.5",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "supertest": "^6.1.6"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -53,5 +55,8 @@
     "multer": "^1.4.4",
     "multer-storage-cloudinary": "^4.0.0",
     "socket.io": "^4.4.0"
+  },
+  "jest": {
+    "preset": "@shelf/jest-mongodb"
   }
 }

@@ -1,7 +1,6 @@
 'use strict';
 
 const mongoose = require('mongoose');
-//const bcrypt = require('bcrypt');
 
 const roomSchema = new mongoose.Schema({
   roomname: {
@@ -10,7 +9,7 @@ const roomSchema = new mongoose.Schema({
     required: true,
   },
   users: [String],
-  password: String, //temp
+  password: String,
 });
 
 const Room = mongoose.model('Room', roomSchema);

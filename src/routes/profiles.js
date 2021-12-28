@@ -18,40 +18,46 @@ const getUserProfile = async (req, res) => {
 };
 
 const createProfile = async (req, res) => {
-  req.body.interests = req.body.interests.split(',');
-  if(req.file) {
-    req.body.image = { 
+  if (req.body.interests) {
+    req.body.interests = req.body.interests.split(',');
+  }
+  if (req.file) {
+    req.body.image = {
       url: req.file.path,
-      filename: req.file.filename
-    }
+      filename: req.file.filename,
+    };
   } else delete req.body.image;
 
   try {
     let result = await Profile.create(req.body);
     res.status(201).json(result);
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json(err);
   }
 };
 
 const updateProfile = async (req, res) => {
   req.body.interests = req.body.interests.split(',');
-  if(req.file) {
-    req.body.image = { 
+  if (req.file) {
+    req.body.image = {
       url: req.file.path,
-      filename: req.file.filename
-    }
+      filename: req.file.filename,
+    };
   } else delete req.body.image;
 
   try {
-    let result = await Profile.findOneAndUpdate({ username: req.body.username }, req.body);
+    let result = await Profile.findOneAndUpdate(
+      { username: req.body.username },
+      req.body,
+      { new: true }
+    );
     res.status(204).json(result);
-  } catch(err) {
-    console.log(err)
+  } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
-}
+};
 
 const deleteProfile = async (req, res) => {
   let result = await Profile.deleteOne({ username: req.params.user });
@@ -69,7 +75,8 @@ const getRandomUser = async (req, res) => {
   res.status(200).json(randomProfile);
 };
 
-router.route('/')
+router
+  .route('/')
   .get(getAllProfiles)
   .post(upload.single('image'), createProfile);
 
