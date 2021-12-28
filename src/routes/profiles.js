@@ -18,7 +18,9 @@ const getUserProfile = async (req, res) => {
 };
 
 const createProfile = async (req, res) => {
-  req.body.interests = req.body.interests.split(',');
+  if (req.body.interests) {
+    req.body.interests = req.body.interests.split(',');
+  }
   if (req.file) {
     req.body.image = {
       url: req.file.path,
