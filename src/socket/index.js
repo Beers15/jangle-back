@@ -31,7 +31,8 @@ module.exports = function (io) {
       try {
         let message = await addMessage(payload);
         console.log('NEW MESSAGE:', message);
-        io.to(payload.roomname).emit('message', message);
+        console.log('payload', payload);
+        io.to(payload.roomname).emit('message', payload);
       } catch (err) {
         console.log(err);
       }
@@ -56,17 +57,8 @@ module.exports = function (io) {
 };
 
 const addMessage = async (message) => {
-  let msg = message;
-  let current = new Date();
-  let date = `${
-    current.getMonth() + 1
-  }/${current.getDate()}/${current.getFullYear()}`;
-  let time = `${current.getHours()}:${current.getMinutes()} PST`;
-  msg.timeSentFormatted = `${date} at ${time}`;
-  msg.timeSent = current;
-
   try {
-    let result = await Message.create(msg);
+    let result = await Message.create(message);
     return result;
   } catch (err) {
     console.log(err);
