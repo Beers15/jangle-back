@@ -11,11 +11,7 @@ const messageSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  timeSent: {
-    type: Date,
-    required: true,
-  },
-  timeSentFormatted: {
+  timestamp: {
     type: String,
     required: true,
   },
