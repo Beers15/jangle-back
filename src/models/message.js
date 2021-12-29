@@ -12,7 +12,7 @@ const messageSchema = new mongoose.Schema({
     required: true,
   },
   timestamp: {
-    type: String,
+    type: Date,
     required: true,
   },
   username: {
