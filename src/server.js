@@ -15,7 +15,12 @@ const io = new Server(httpServer, {
   cors: {},
 });
 
-mongoose.connect(`${process.env.DATABASE_URI}`);
+let connectionString = process.env.DATABASE_URI;
+if (process.env.NODE_ENV === 'test') {
+  connectionString = global.__MONGO_URI__;
+}
+
+mongoose.connect(connectionString);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', () => console.log('Successfully connected to MongoDB'));
@@ -29,6 +34,7 @@ app.use('/profiles', profileRoutes);
 app.use('/messages', messageRoutes);
 
 module.exports = {
+  app,
   start: (port) => {
     if (!port) {
       throw new Error('Missing Port');
