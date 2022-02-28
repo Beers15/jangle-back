@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const Room = require('../models/room');
+const auth = require('../middleware/auth');
 
 const getAllRoom = async (req, res) => {
   let allRoom = await Room.find({});
@@ -39,8 +40,8 @@ const deleteRoom = async (req, res) => {
   res.status(204).json(result);
 };
 
+router.use(auth);
 router.route('/').get(getAllRoom).post(createRoom);
-
 router.route('/:id').delete(deleteRoom);
 
 module.exports = router;
