@@ -6,6 +6,7 @@ const router = express.Router();
 const { storage } = require('../utils/cloudinary');
 const upload = multer({ storage });
 const Profile = require('../models/profile');
+const auth = require('../middleware/auth');
 
 const getAllProfiles = async (req, res) => {
   let allProfile = await Profile.find({});
@@ -74,6 +75,8 @@ const getRandomUser = async (req, res) => {
 
   res.status(200).json(randomProfile);
 };
+
+router.use(auth);
 
 router
   .route('/')
