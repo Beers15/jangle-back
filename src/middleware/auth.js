@@ -16,6 +16,7 @@ module.exports = function auth(req, res, next) {
   let token = req.headers.authorization ? req.headers.authorization.split(' ')[1] : null;
   jwt.verify(token, getKey, {}, async (err) => {
     if (err || !token) {
+      console.log(err)
       token ? res.status(500).send(err) : res.status(401).send(err);
     } else next();
   });

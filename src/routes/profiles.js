@@ -76,6 +76,8 @@ const getRandomUser = async (req, res) => {
   res.status(200).json(randomProfile);
 };
 
+router.use(auth);
+
 router
   .route('/')
   .get(getAllProfiles)
@@ -87,7 +89,6 @@ router
   .put(upload.single('image'), updateProfile)
   .delete(deleteProfile);
 
-router.use(auth);
 router.route('/:user/random').get(getRandomUser);
 
 module.exports = router;
